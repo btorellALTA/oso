@@ -542,7 +542,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@v2
       - name: Set version env
@@ -571,7 +571,7 @@ jobs:
     runs-on: macos-11
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@v2
       - name: Set version env
@@ -643,6 +643,20 @@ jobs:
           arch -arm64 ./venv312/bin/pip install oso==${{ steps.version.outputs.oso_version }} -f ../wheel
           arch -arm64 ./venv312/bin/python test.py
         working-directory: test
+      - name: "test python 3.13"
+        run: |
+          arch -arm64 /opt/homebrew/opt/python@3.13/bin/python3 -m venv venv312
+          arch -arm64 ./venv312/bin/pip install oso==${{ steps.version.outputs.oso_version }} -f ../wheel --no-deps --no-index
+          arch -arm64 ./venv312/bin/pip install oso==${{ steps.version.outputs.oso_version }} -f ../wheel
+          arch -arm64 ./venv312/bin/python test.py
+        working-directory: test
+      - name: "test python 3.14"
+        run: |
+          arch -arm64 /opt/homebrew/opt/python@3.14/bin/python3 -m venv venv312
+          arch -arm64 ./venv312/bin/pip install oso==${{ steps.version.outputs.oso_version }} -f ../wheel --no-deps --no-index
+          arch -arm64 ./venv312/bin/pip install oso==${{ steps.version.outputs.oso_version }} -f ../wheel
+          arch -arm64 ./venv312/bin/python test.py
+        working-directory: test
 
   validate_python_windows:
     name: Test python ${{ matrix.python-version }} on Windows
@@ -650,7 +664,7 @@ jobs:
     runs-on: windows-2019
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@v2
       - name: Set version env
@@ -679,7 +693,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@v2
       - name: Set version env
